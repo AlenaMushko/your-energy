@@ -7,15 +7,14 @@
     <title>your-energy</title>
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
-  <body class="fixedClass">
+  <body>
     <load src="partials/header.html" />
-
     <main>
-      <load src="partials/hero.html" />
-      <load src="partials/filters.html" />
-      <load src="partials/categories.html" />
-      <load src="partials/exercises.html" />
-      <load src="partials/quote.html" />
+      <div class="container favorites-wrapper">
+        <load src="partials/quote.html" />
+
+        <section class="favorites-list"></section>
+      </div>
     </main>
 
     <load src="partials/footer.html" />
@@ -24,6 +23,6 @@
     <load src="partials/modal-rating.html" />
     <load src="partials/mobile-menu.html" />
 
-    <script type="module" src="./main.js"></script>
+    <script type="module" src="./js/favorites.js"></script>
   </body>
 </html>
