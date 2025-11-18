@@ -8,11 +8,11 @@
   --animation-duration: 300ms;
   --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
-  --font-family: "DM Sans", sans-serif;
+  --font-main: 'DM Sans', sans-serif;
 }
 
 body {
-  font-family: var(--font-family);
+  font-family: var(--font-main);
   line-height: 1.5;
   color: #2f2f37;
   margin: 0 auto;
@@ -40,18 +40,9 @@ li {
 section {
   position: relative;
 }
-/* --- Шапка пошуку --- */
-header {
-  width: 100%;
-  box-shadow: 0 2px 4px var(--shadow-md);
-  background: var(--white-color);
-  position: sticky;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  padding: 10px 0;
-}
 
-.form--container {
-  background: transparent;
+/* Перевизначення шрифтів для iziToast */
+.iziToast-wrapper,
+.iziToast-capsule {
+  font-family: var(--font-main, 'Roboto', sans-serif) !important;
 }
