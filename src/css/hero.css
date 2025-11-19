@@ -3,7 +3,7 @@
   font-size: 38px;
   line-height: 1.16;
   letter-spacing: -0.02em;
-
+  margin-bottom: 20px;
 }
 
 .hero-title span {
@@ -28,6 +28,7 @@
   line-height: 1.29;
   letter-spacing: -0.02em;
   color: var(--color-header-bg-dark);
+  margin-bottom: 20px;
 }
 
 .hero-img {
@@ -81,7 +82,7 @@
 
   .hero-list {
     justify-content: flex-end;
-    gap: 6px;
+    gap: 8px;
   }
 }
 
