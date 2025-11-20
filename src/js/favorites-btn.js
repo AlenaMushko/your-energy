@@ -1,25 +1,30 @@
 const FAVORITES_KEY = 'favorites';
 
+// Get favorites from LocalStorage
 function getFavorites() {
   const data = localStorage.getItem(FAVORITES_KEY);
   return data ? JSON.parse(data) : [];
 }
 
+// Save favorites to LocalStorage
 function saveFavorites(favoritesArray) {
   localStorage.setItem(FAVORITES_KEY, JSON.stringify(favoritesArray));
 }
 
+// Check if an exercise is in favorites
 function isFavorite(id) {
   const favorites = getFavorites();
   return favorites.some(item => item.id === id);
 }
 
+// Add exercise to favorites
 function addFavorite(exerciseObj) {
   const favorites = getFavorites();
   favorites.push(exerciseObj);
   saveFavorites(favorites);
 }
 
+// Remove exercise from favorites
 function removeFavorite(id) {
   const favorites = getFavorites();
   const updated = favorites.filter(item => item.id !== id);
@@ -28,14 +33,9 @@ function removeFavorite(id) {
 
 const currentExercise = {};
 
-// References (modal button)
-// The button will be found during initFavoritesBtn()
-
 const refs = {
   favoriteBtnElement: null,
 };
-
-// Initialize Favorites button
 
 function initFavoritesBtn(exercise) {
   refs.favoriteBtnElement = document.querySelector('.favorites-btn');
@@ -60,17 +60,6 @@ function initFavoritesBtn(exercise) {
     }
   };
 }
-
-const testExercise = {
-  id: 'test123',
-  name: 'Push Ups',
-  gifUrl: 'https://example.com/pushups.gif',
-  target: 'chest',
-  bodyPart: 'upper arms',
-  equipment: 'body weight',
-};
-
-initFavoritesBtn(testExercise);
 
 export {
   getFavorites,
