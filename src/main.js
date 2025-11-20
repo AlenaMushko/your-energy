@@ -1,10 +1,37 @@
 import 'izitoast/dist/css/iziToast.min.css';
-import { showSuccess, showError, showInfo } from './js/iziToast-helper.js';
 
 import './js/quote-of-the-day.js';
+import './js/categories.js';
 
-showSuccess('We have sent you a verification email!');
+import './js/mobile-menu.js';
+import './js/filters.js';
 
-showInfo('Wrong symbols in your email.');
+import { cancelLoader } from './js/loader.js';
+import { registerModalType, initModalButtons } from './js/modal-template.js';
+import { MODAL_TYPES } from './js/constants.js';
+import {
+  getRatingModalContent,
+  initRatingModal,
+} from './js/modal-rating-content.js';
 
-showError('This email is already subscribed or invalid.');
+// функція пошуку
+// ref.searchButton.addEventListener('click', onSearch);
+// ref.loadMoreButton.addEventListener('click', loadMore);
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    cancelLoader();
+    initModals();
+  });
+} else {
+  cancelLoader();
+  initModals();
+}
+
+function initModals() {
+  registerModalType(MODAL_TYPES.RATING, getRatingModalContent, initRatingModal);
+  // registerModalType(MODAL_TYPES.EXERCISE, getExerciseModalContent, initExerciseModal);
+
+  initModalButtons();
+}
+
