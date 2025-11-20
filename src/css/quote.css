@@ -25,6 +25,9 @@
 
 /* Elements */
 .quote-of-the-day__icon-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-shrink: 0;
   width: 32px;
   height: 32px;
