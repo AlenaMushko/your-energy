@@ -12,10 +12,7 @@ function getPageLimit() {
 let currentPage = 1;
 let currentTotalPages = 1;
 
-/**
- * Головна ініціалізація списку вправ на сторінці Exercises
- * Викликається з main.js: initExercisesList();
- */
+
 export async function initExercisesList() {
   const listEl = document.querySelector('.js-exercises-list');
   if (!listEl) return;
@@ -24,19 +21,10 @@ export async function initExercisesList() {
   // перше завантаження
   await loadExercisesList({ page: 1 });
 
-  // делегування на пагінацію
-  //   const paginationEl = document.querySelector('.js-exercises-pagination');
-  //   if (paginationEl) {
-  //     paginationEl.addEventListener('click', onPaginationClick);
-  //   }
+
 }
 
-/**
- * Цю функцію викликають:
- *  - при першому завантаженні (initExercisesList)
- *  - з файлу exercises-tabs.js при зміні табу
- *  - з файлу exercises-search.js при пошуку
- */
+
 export async function loadExercisesList({ page = 1, keyword = '' } = {}) {
   const listEl = document.querySelector('.js-exercises-list');
   if (!listEl) return;
@@ -71,11 +59,7 @@ export async function loadExercisesList({ page = 1, keyword = '' } = {}) {
   }
 }
 
-/**
- * Зчитує тип (tab) + filter з:
- *  - активного табу (.exercises__tab--active)
- *  - URL: ?type=body-parts&filter=waist
- */
+
 function getTypeAndFilterFromUI() {
   const urlParams = new URLSearchParams(window.location.search);
 
@@ -115,12 +99,7 @@ function getDefaultFilterForType(type) {
   }
 }
 
-/**
- * Мапа type → параметр API
- * body-parts → bodypart=...
- * muscles   → muscles=...
- * equipment → equipment=...
- */
+
 function buildExercisesParams({ page, limit, type, filter, keyword }) {
   const params = { page, limit };
 
@@ -162,10 +141,7 @@ function renderExercisesList(listEl, items) {
   listEl.innerHTML = markup;
 }
 
-/**
- * Одна картка вправи
- * Підганяємо під твій HTML-макет
- */
+
 function createExerciseCardMarkup(item) {
   const { name, burnedCalories, bodyPart, target, rating } = item;
 
