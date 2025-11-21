@@ -9,7 +9,7 @@ import './js/categories.js';
 
 import './js/mobile-menu.js';
 import './js/filters.js';
-
+import './js/footer.js';
 import { cancelLoader } from './js/loader.js';
 import { registerModalType, initModalButtons } from './js/modal-template.js';
 import { MODAL_TYPES } from './js/constants.js';
@@ -38,4 +38,3 @@ function initModals() {
 
   initModalButtons();
 }
-
