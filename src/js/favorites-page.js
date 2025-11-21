@@ -6,15 +6,16 @@ const refs = {
 };
 const favorites = getFavorites();
 
-if (favorites.length === 0) {
+if (favorites && refs.listContainer && favorites.length === 0) {
   refs.listContainer.innerHTML = `
     <div class="favorites-empty">
       <p>It appears that you haven’t added any exercises to your favorites yet.</p>
       <p>To get started, you can add exercises that you like to your favorites for easier access in the future.</p>
     </div>`;
-} else {
+} else if(Array.isArray(favorites) && refs.listContainer) {
   renderFavorites(favorites);
 }
+
 function renderFavorites(favorites) {
   refs.listContainer.innerHTML = '';
 

@@ -22,15 +22,15 @@ import {
 // ref.searchButton.addEventListener('click', onSearch);
 // ref.loadMoreButton.addEventListener('click', loadMore);
 
-if (document.readyState === 'loading') {
+// if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
-    cancelLoader();
+    // cancelLoader();
     initModals();
   });
-} else {
-  cancelLoader();
-  initModals();
-}
+// } else {
+//   cancelLoader();
+//   initModals();
+// }
 
 function initModals() {
   registerModalType(MODAL_TYPES.RATING, getRatingModalContent, initRatingModal);
