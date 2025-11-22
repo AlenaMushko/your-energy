@@ -67,7 +67,6 @@ export async function loadExercisesList({
   // 2) анти-гонка
   const requestId = ++lastRequestId;
 
- 
   startLoader();
 
   try {
@@ -84,10 +83,8 @@ export async function loadExercisesList({
     renderExercisesList(listEl, items);
     renderExercisesPagination(currentPage, currentTotalPages);
 
-   
     cancelLoader();
 
-  
     if (!items.length) {
       const emptyKey = `${activeType}:${activeFilter}:${activeKeyword || ''}`;
 
@@ -126,10 +123,8 @@ export async function loadExercisesList({
     // якщо це старий запит — не чіпаємо лоадер
     if (requestId !== lastRequestId) return;
 
-  
     cancelLoader();
 
-    
     if (typeof showError === 'function') {
       showError(err.message || 'Failed to load exercises. Try again later.');
     } else {
