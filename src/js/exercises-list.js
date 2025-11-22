@@ -10,7 +10,6 @@ import {
 } from './modal-exercise-content.js';
 
 const api = new YourEnergyAPI();
-console.dir(api);
 
 function getPageLimit() {
   return window.innerWidth < 768 ? 8 : 10;
