@@ -48,22 +48,6 @@ function renderFavorites(arr) {
   });
 }
 
-async function updateFavoritesPage() {
-  const favoritesIds = getFavorites();
-
-  if (!favoritesIds.length) {
-    renderEmptyMessage();
-    return;
-  }
-
-  const exercises = await loadFavoritesData(favoritesIds);
-
-  if (!exercises.length) {
-    renderEmptyMessage();
-    return;
-  }
-
-  renderFavorites(exercises);
-}
-
-updateFavoritesPage();
+const favorites = getFavorites();
+if (REFS.favoritesList)
+  favorites.length ? renderFavorites(favorites) : renderEmptyMessage();
