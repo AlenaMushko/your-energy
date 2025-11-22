@@ -286,7 +286,8 @@
   font-size: 12px;
   line-height: 1.4;
   cursor: pointer;
-  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+  transition: background-color 200ms ease, color 200ms ease,
+    border-color 200ms ease;
 }
 
 /* состояние: упражнение добавлено в избранное */
@@ -448,4 +449,14 @@
   .exercises__item {
     width: 442px;
   }
+}
+
+.favorites-delete-btn {
+  border: none;
+  background-color: transparent;
+}
+.favorites-delete-btn:focus,
+.favorites-delete-btn:hover {
+  transform: scale(1.2);
+  transition: all var(--animation-duration) var(--timing-function);
 }
