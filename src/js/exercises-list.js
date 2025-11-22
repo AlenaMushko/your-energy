@@ -12,7 +12,7 @@ function getPageLimit() {
 }
 
 // мінімальний стан
-// (щоб пагінація знала останній filter/type)
+// (щоб пагінація знала останній filter/type/keyword)
 let currentQuery = {
   type: 'body-parts',
   filter: 'waist',
@@ -36,7 +36,7 @@ export async function loadExercisesList({
   page = 1,
   type,
   filter,
-  keyword = '',
+  keyword, // <-- ВАЖЛИВО: без дефолту '' щоб пагінація не скидала пошук
 } = {}) {
   const listEl = document.querySelector('.js-exercises-list');
   if (!listEl) return;
@@ -44,13 +44,13 @@ export async function loadExercisesList({
   const limit = getPageLimit();
 
   // 1) якщо прилетіли type/filter/keyword — зберігаємо як актуальні
-  if (type) currentQuery.type = type;
-  if (filter) currentQuery.filter = filter;
+  if (type !== undefined) currentQuery.type = type;
+  if (filter !== undefined) currentQuery.filter = filter;
   if (keyword !== undefined) currentQuery.keyword = keyword;
 
   const activeType = currentQuery.type;
   const activeFilter = currentQuery.filter;
-  const activeKeyword = currentQuery.keyword;
+  const activeKeyword = currentQuery.keyword || '';
 
   const params = buildExercisesParams({
     page,
@@ -73,7 +73,7 @@ export async function loadExercisesList({
     const data = await api.getExercises(params);
     console.log(data);
 
-    // якщо це старий запит — нічого не робимо (і лоадер не чіпаємо)
+    // якщо це старий запит — нічого не робимо
     if (requestId !== lastRequestId) return;
 
     const items = data.results || [];
@@ -83,8 +83,6 @@ export async function loadExercisesList({
     renderExercisesList(listEl, items);
     renderExercisesPagination(currentPage, currentTotalPages);
 
-    cancelLoader();
-
     if (!items.length) {
       const emptyKey = `${activeType}:${activeFilter}:${activeKeyword || ''}`;
 
@@ -92,7 +90,7 @@ export async function loadExercisesList({
         lastEmptyToastKey = emptyKey;
 
         // показуємо лише якщо користувач щось змінював/шукає
-        if (activeKeyword || type || filter) {
+        if (activeKeyword || type !== undefined || filter !== undefined) {
           iziToast.warning({
             title: 'No results',
             message: activeKeyword
@@ -106,8 +104,11 @@ export async function loadExercisesList({
       lastEmptyToastKey = '';
     }
 
-    // 3) оновлюємо URL ТІЛЬКИ коли прийшли нові type/filter (тобто клік по категорії)
-    if (type || filter || keyword) {
+    // 3) оновлюємо URL тільки коли реально прийшли нові параметри
+    const shouldUpdateUrl =
+      type !== undefined || filter !== undefined || keyword !== undefined;
+
+    if (shouldUpdateUrl) {
       const url = new URL(window.location.href);
       url.searchParams.set('type', activeType);
       url.searchParams.set('filter', activeFilter);
@@ -120,10 +121,8 @@ export async function loadExercisesList({
   } catch (err) {
     console.error('Failed to load exercises:', err);
 
-    // якщо це старий запит — не чіпаємо лоадер
+    // якщо це старий запит — не чіпаємо UI
     if (requestId !== lastRequestId) return;
-
-    cancelLoader();
 
     if (typeof showError === 'function') {
       showError(err.message || 'Failed to load exercises. Try again later.');
@@ -140,6 +139,11 @@ export async function loadExercisesList({
         <p>Failed to load exercises. Try again later.</p>
       </li>
     `;
+  } finally {
+    // лоадер ховаємо тільки якщо це актуальний запит
+    if (requestId === lastRequestId) {
+      cancelLoader();
+    }
   }
 }
 
@@ -242,7 +246,7 @@ export function renderExercisesPagination(currentPage, totalPages) {
     scrollToTop: true,
     scrollTarget: '.exercises',
     onPageChange(page) {
-      // важливо: НЕ передаємо type/filter → береться currentQuery
+      // важливо: НЕ передаємо type/filter/keyword → береться currentQuery
       return loadExercisesList({ page });
     },
   });
