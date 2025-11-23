@@ -65,7 +65,7 @@
 }
 
 .quote-of-the-day__content {
-  color: var(--text-secondary-color);
+  color: var(--color-secondary);
   margin-bottom: 10px;
 }
 

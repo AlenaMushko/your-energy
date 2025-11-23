@@ -176,39 +176,6 @@
   pointer-events: auto;
 }
 
-/* анимация для выезда поиска */
-/* @keyframes filtersSearchSlide {
-  from {
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-} */
-
-/* ===== Mobile & Tablet (до 1440px) ===== */
-@media (max-width: 1439px) {
-  /* по умолчанию поиска нет */
-  /* .filters__search {
-    display: none;
-    animation: filtersSearchSlide 0.25s var(--timing-function);
-  } */
-
-  /* когда надо показать (Body parts) */
-  /* .filters__search--visible-mobile {
-    display: flex;
-    animation: filtersSearchSlide 0.25s var(--timing-function);
-  } */
-
-  /* табы будут уезжать вправо, когда появится поиск */
-  /* .filters__tabs {
-    flex-grow: 1;
-    justify-content: flex-start;
-  } */
-}
-
 /* ===== Tablet (>=768px) ===== */
 @media (min-width: 768px) {
   .filters {
@@ -261,6 +228,7 @@
   .filters__tabs {
     justify-content: flex-end;
     gap: 24px;
+    min-width: 263px;
   }
 }
 
