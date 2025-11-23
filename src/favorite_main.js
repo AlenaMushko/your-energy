@@ -2,6 +2,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 import './js/quote-of-the-day.js';
 import './js/mobile-menu.js';
 import './js/scroll-up.js';
+
 import { cancelLoader } from './js/loader.js';
 import { registerModalType, initModalButtons } from './js/modal-template.js';
 import { MODAL_TYPES } from './js/constants.js';
