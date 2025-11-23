@@ -94,7 +94,22 @@ export function renderPaginationUniversal({
       if (Number.isNaN(page) || page === currentPage) return;
 
       onPageChange(page);
-      scrollHandler();
+
+      if (scrollToTop) {
+        if (scrollTarget) {
+          const el =
+            typeof scrollTarget === 'string'
+              ? document.querySelector(scrollTarget)
+              : scrollTarget;
+
+          if (el) {
+            const y = el.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({ top: y - 200, behavior: 'smooth' });
+          }
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }
     });
   });
 }

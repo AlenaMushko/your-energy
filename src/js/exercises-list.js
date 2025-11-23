@@ -8,6 +8,7 @@ import {
   getExerciseModalContent,
   initExerciseModal,
 } from './modal-exercise-content.js';
+import { injectSchemaExercises } from './seo-function.js';
 
 const api = new YourEnergyAPI();
 
@@ -64,7 +65,8 @@ export async function loadExercisesList({
     const items = data.results || [];
     currentPage = data.page || page;
     currentTotalPages = data.totalPages || 1;
-
+    injectSchemaExercises(data);
+    console.log();
     renderExercisesList(listEl, items);
     renderExercisesPagination(currentPage, currentTotalPages);
 
