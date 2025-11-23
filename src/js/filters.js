@@ -10,7 +10,7 @@ function updateUIForFilter(filter, subtitleValue = '') {
 
   const capitalizedSubtitle = subtitleValue
     ? subtitleValue.charAt(0).toUpperCase() + subtitleValue.slice(1)
-    : 'Waist';
+    : '';
 
   if (filter === 'bodypart') {
     subtitle.textContent = ` / ${capitalizedSubtitle}`;

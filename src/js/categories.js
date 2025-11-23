@@ -158,6 +158,14 @@ export function onCardBodyClick(nameValue) {
 
   setOpenExercises(true);
   if (searchBox) searchBox.classList.add('filters__search--visible');
+  const filtersSubtitle = document.querySelector('.filters__subtitle');
+  if (filtersSubtitle) {
+    filtersSubtitle.textContent =
+      nameValue.charAt(0).toUpperCase() + nameValue.slice(1);
+  } else {
+    filtersSubtitle.textContent = '';
+  }
+
   loadExercisesList({ page: 1, filter: nameValue, type: activeFilterType });
 }
 
