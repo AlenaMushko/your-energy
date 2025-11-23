@@ -44,6 +44,11 @@
   margin-bottom: 0;
 }
 
+.title-wrapper.favorites-list {
+  display: flex;
+  flex-direction: column;
+}
+
 .title {
   font-family: var(--font-family);
   font-weight: 400;
@@ -86,7 +91,32 @@
 /* Tablet styles */
 @media screen and (min-width: 768px) {
   .favorites-wrapper {
-    gap: 32px;
+    padding-top: 100px;
+  }
+  .favorites-wrapper .sidebar {
+    margin-bottom: 0px;
+  }
+  .favorites-wrapper .main-container {
+    margin-bottom: 64px;
+  }
+
+  .favorites-wrapper .quote-of-the-day {
+    max-width: 1440px;
+  }
+  .favorites-wrapper .sidebar__daily-norm,
+  .favorites-wrapper .sidebar__photo-card {
+    max-width: 344px;
+    min-height: 141px;
+    max-height: 141px;
+  }
+  .favorites-wrapper .sidebar__daily-norm {
+    padding: 25px;
+  }
+  .favorites-wrapper .sidebar__daily-norm-title {
+    line-height: 133%;
+  }
+  .favorites-wrapper .sidebar__daily-norm-subtitle {
+    line-height: 129%;
   }
 
   .favorites-empty {
@@ -123,11 +153,35 @@
     display: flex;
     flex-direction: row;
     gap: 32px;
+    padding-top: 90px;
+  }
+
+  .favorites-wrapper .sidebar {
+    min-width: 494px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .favorites-wrapper .title {
+    font-size: 44px;
+    line-height: 109%;
+    letter-spacing: -0.02em;
+  }
+
+  .favorites-wrapper .sidebar__daily-norm,
+  .favorites-wrapper .sidebar__photo-card {
+    width: 239px;
+    min-width: 0px;
   }
 
   .favorites .sidebar {
     width: 494px;
     flex-shrink: 0;
+  }
+
+  .title-wrapper.favorites-list {
+    flex-direction: row;
   }
 
   .favorites-empty {
@@ -144,7 +198,11 @@
     gap: 32px 16px;
     margin-bottom: 50px;
     max-height: 487px;
-    overflow-y: auto;
+  }
+  .favorites.favorites-list {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-top: 80px;
   }
 
   .favorites-list .exercises__item {
