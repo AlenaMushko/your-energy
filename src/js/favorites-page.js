@@ -1,8 +1,8 @@
 import { getFavorites, removeFavorite } from './favorites-btn.js';
 import { YourEnergyAPI } from './api.js';
-import { REFS } from './constants.js';
 import { renderExercisesList } from '../js/exercises-list';
 import { renderPaginationUniversal } from './pagination.js';
+import { cancelLoader, startLoader } from './loader.js';
 
 const api = new YourEnergyAPI();
 
@@ -150,20 +150,6 @@ async function renderFavorites(arr) {
 
   currentPage = 1;
   renderPaginatedFavorites(1);
-
-  const listEl = container.querySelector('.favorites-list');
-  if (listEl) {
-    listEl.addEventListener('click', event => {
-      const deleteBtn = event.target.closest('.favorites-delete-btn');
-      if (deleteBtn) {
-        const idToRemove = deleteBtn.dataset.id;
-        if (idToRemove) {
-          removeFavorite(idToRemove);
-          startRenderFavorites();
-        }
-      }
-    });
-  }
 }
 
 export function startRenderFavorites() {
@@ -180,5 +166,30 @@ window.addEventListener('resize', () => {
     }
   }, 250);
 });
+
+const wrapper = document.querySelector('.favorites-wrapper');
+
+if (wrapper) {
+  wrapper.addEventListener('click', event => {
+    const deleteBtn = event.target.closest('.favorites-delete-btn');
+
+    if (deleteBtn) {
+      const idToRemove = deleteBtn.dataset.id;
+
+      if (idToRemove) {
+        if (wrapper.style.pointerEvents === 'none') return;
+        wrapper.style.pointerEvents = 'none';
+
+        startLoader();
+        removeFavorite(idToRemove);
+        startRenderFavorites();
+        cancelLoader();
+        setTimeout(() => {
+          wrapper.style.pointerEvents = 'auto';
+        }, 500);
+      }
+    }
+  });
+}
 
 startRenderFavorites();

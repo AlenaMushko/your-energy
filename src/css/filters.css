@@ -249,6 +249,7 @@
   .filters__tabs {
     justify-content: flex-end;
     gap: 24px;
+    min-width: 263px;
   }
 }
 
