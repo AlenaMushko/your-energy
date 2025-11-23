@@ -19,7 +19,6 @@ function getItemsPerPage() {
   }
   return 8;
 }
-
 function renderEmptyMessage() {
   const container = document.querySelector('.favorites-wrapper');
   if (!container) return;
@@ -30,13 +29,20 @@ function renderEmptyMessage() {
   const existingEmpty = container.querySelector('.favorites-empty');
   if (existingEmpty) existingEmpty.remove();
 
+  let mainContainer = container.querySelector('.main-container');
+  if (!mainContainer) {
+    mainContainer = document.createElement('div');
+    mainContainer.className = 'main-container container';
+    container.appendChild(mainContainer);
+  }
+
   const emptyDiv = document.createElement('div');
   emptyDiv.className = 'favorites-empty';
   emptyDiv.innerHTML = `
     <p>It appears that you haven't added any exercises to your favorites yet. To get started, you can add exercises that you like to your favorites for easier access in the future.</p>
   `;
 
-  container.appendChild(emptyDiv);
+  mainContainer.appendChild(emptyDiv);
 }
 
 async function loadFavoritesData(ids) {
