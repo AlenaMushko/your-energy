@@ -40,6 +40,7 @@ export function activateFiltersTab(filterKey, subtitleValue = '') {
     if (categoriesBox) categoriesBox.classList.remove('hidden');
     setOpenExercises(false);
   } else if (filterKey === 'equipment') {
+    getCategories('Equipment');
     if (equipmentBox) equipmentBox.classList.remove('hidden');
     setOpenExercises(false);
   } else if (filterKey === 'bodypart') {
