@@ -47,6 +47,7 @@
   width: 335px;
   height: 242px;
   flex-shrink: 0;
+  order: 2;
 }
 
 .sidebar__photo-card-img {
@@ -77,6 +78,7 @@
   border-radius: 20px;
   min-height: 201px;
   padding: 20px;
+  order: 3;
 }
 
 @media (min-width: 768px) {
