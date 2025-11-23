@@ -83,33 +83,34 @@ export function renderPaginationUniversal({
       pages = [currentPage - 1, currentPage, currentPage + 1];
     }
 
-    const needDouble = showArrows && totalPages > 3;
-    const isAtStart = pages[0] === 1; // ще вікно 123
-    const isAtEnd = pages[2] === totalPages; // останнє вікно
+    // ⬅ ліві стрілки логіка
+    const disablePrev = currentPage === 1; // < disabled тільки на 1
+    const disableFirst = currentPage <= 2; // << disabled на 1 і 2
+    const isAtEnd = pages[2] === totalPages; // для правих стрілок
 
-    // << — завжди, але disabled поки 123
-    if (needDouble) {
+    // << — disabled на 1 і 2
+    if (showArrows && totalPages > 3) {
       const firstBtn = createBtn(
         firstIcon,
         1,
         `${arrowClass} ${prevClass} ${firstClass}`.trim()
       );
-      if (isAtStart) firstBtn.disabled = true;
+      if (disableFirst) firstBtn.disabled = true;
       container.appendChild(firstBtn);
     }
 
-    // < — завжди, але disabled поки 123
+    // < — disabled тільки на 1
     if (showPrevNext) {
       const prevBtn = createBtn(
         prevIcon,
         Math.max(1, currentPage - 1),
-        prevClass
+        `${prevClass}`.trim()
       );
-      if (isAtStart) prevBtn.disabled = true;
+      if (disablePrev) prevBtn.disabled = true;
       container.appendChild(prevBtn);
     }
 
-    // pages
+    // Pages
     pages.forEach(p => {
       const btn = createBtn(
         p,
@@ -119,19 +120,19 @@ export function renderPaginationUniversal({
       container.appendChild(btn);
     });
 
-    // > — завжди, disabled на останньому вікні
+    // > — disabled тільки на останньому вікні
     if (showPrevNext) {
       const nextBtn = createBtn(
         nextIcon,
         Math.min(totalPages, currentPage + 1),
-        nextClass
+        `${nextClass}`.trim()
       );
       if (isAtEnd) nextBtn.disabled = true;
       container.appendChild(nextBtn);
     }
 
-    // >> — завжди, disabled на останньому вікні
-    if (needDouble) {
+    // >> — disabled тільки на останньому вікні
+    if (showArrows && totalPages > 3) {
       const lastBtn = createBtn(
         lastIcon,
         totalPages,
@@ -150,6 +151,7 @@ export function renderPaginationUniversal({
     }
   }
 
+  // Events
   container.querySelectorAll('button').forEach(btn => {
     btn.addEventListener('click', () => {
       if (btn.disabled) return;
