@@ -247,11 +247,11 @@ export function renderExercisesPagination(currentPage, totalPages) {
       page: 'exercises__page',
       active: 'active',
       prev: 'exercises__page-prev',
-      next: 'exercises__page-next'
+      next: 'exercises__page-next',
     },
     icons: {
       prev: '<',
-      next: '>'
+      next: '>',
     },
     scrollToTop: true,
     scrollTarget: '.exercises',
@@ -259,6 +259,10 @@ export function renderExercisesPagination(currentPage, totalPages) {
       return loadExercisesList({ page });
     },
   });
+
+  const el = document.querySelector('.filters__controls');
+  console.log(el);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
 }
 
 function handleExerciseItemClick(listEl) {
