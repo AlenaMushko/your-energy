@@ -2,6 +2,7 @@ import { YourEnergyAPI } from './api';
 import { showError } from './iziToast-helper';
 import { injectSchema } from './seo-function';
 import { handleCategoryCardClick } from './categories-card-click';
+import { cancelLoader, startLoader } from './loader';
 export const fetchApi = new YourEnergyAPI();
 
 const PAGE_LIMIT = window.innerWidth < 768 ? 9 : 12;
@@ -20,6 +21,7 @@ async function getCategories(
 
   try {
     const params = { filter, page, limit };
+    startLoader();
     const data = await fetchApi.getFilters(params);
 
     if (!data) {
@@ -57,6 +59,8 @@ async function getCategories(
     showError(err?.message || 'Something went wrong');
     clearCards();
     clearPagination();
+  } finally {
+    cancelLoader();
   }
 }
 
@@ -114,6 +118,7 @@ function renderPagination(currentPage, totalPages) {
     if (pageNum === currentPage) {
       btn.classList.add('active');
     }
+    const el = document.getElementById('cards-box');
 
     btn.addEventListener('click', () => {
       if (pageNum === activePage) return;
@@ -121,13 +126,13 @@ function renderPagination(currentPage, totalPages) {
       activePage = pageNum;
       getCategories(activeFilter, pageNum, PAGE_LIMIT);
 
-      setTimeout(() => {
-        const cardsBox = document.getElementById('cards-box');
-        if (cardsBox) {
-          const boxTop = cardsBox.getBoundingClientRect().top + window.scrollY;
-          window.scrollTo({ top: boxTop - 20, behavior: 'smooth' });
-        }
-      }, 100);
+
+      if (el) {
+        const y = el.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: y - 200, behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     });
 
     container.appendChild(btn);
