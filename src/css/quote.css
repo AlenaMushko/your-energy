@@ -14,8 +14,16 @@
   .quote-of-the-day {
     padding: 40px;
     gap: 16px;
-    max-width: 400px;
     width: 100%;
+  }
+  .quote-of-the-day {
+    max-width: 370px;
+  }
+}
+
+@media screen and (min-width: 788px) {
+  .quote-of-the-day {
+    max-width: 400px;
   }
 }
 
