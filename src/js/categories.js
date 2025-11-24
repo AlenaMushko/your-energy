@@ -6,6 +6,8 @@ import { YourEnergyAPI } from './api';
 import { renderPaginationUniversal } from './pagination';
 import { loadExercisesList } from './exercises-list.js';
 import { setOpenExercises } from './state.js';
+import { resetExercisesSearch } from './exercises-search'; // ✅ додано
+
 export const fetchApi = new YourEnergyAPI();
 
 const PAGE_LIMIT = window.innerWidth < 768 ? 9 : 12;
@@ -77,11 +79,10 @@ function renderCards(items) {
     const card = document.createElement('div');
     card.className = 'card';
 
-    // Safe values
     const safeImg =
       item.imgURL && item.imgURL.trim() !== ''
         ? item.imgURL
-        : '/img/no-image.jpg'; // fallback image
+        : '/img/no-image.jpg';
 
     const safeName = item.name || '';
     const safeFilter = item.filter || '';
@@ -93,6 +94,7 @@ function renderCards(items) {
         <span>${safeFilter}</span>
       </div>
     `;
+
     // handleCategoryCardClick;
     card.addEventListener('click', () => handleCategoryCardClick(item));
     container.appendChild(card);
@@ -104,6 +106,7 @@ function renderCards(items) {
   });
 }
 
+// Pagination
 function renderPagination(currentPage, totalPages) {
   const container = document.getElementById('pagination');
   if (!container) return;
@@ -113,19 +116,25 @@ function renderPagination(currentPage, totalPages) {
     currentPage,
     totalPages,
     mode: 'neighbors',
+
     showPrevNext: totalPages > 2,
+    showArrows: totalPages > 3,
+
     classes: {
       page: 'pagination-page',
       active: 'active',
       prev: 'pagination-page-prev',
       next: 'pagination-page-next',
     },
+
     icons: {
       prev: '<',
       next: '>',
     },
+
     scrollToTop: true,
     scrollTarget: '.main-container',
+
     onPageChange(page) {
       activePage = page;
       return getCategories(activeFilter, page, PAGE_LIMIT);
@@ -158,6 +167,7 @@ export function onCardBodyClick(nameValue) {
 
   setOpenExercises(true);
   if (searchBox) searchBox.classList.add('filters__search--visible');
+
   const filtersSubtitle = document.querySelector('.filters__subtitle');
   if (filtersSubtitle) {
     filtersSubtitle.textContent =
@@ -166,7 +176,14 @@ export function onCardBodyClick(nameValue) {
     filtersSubtitle.textContent = '';
   }
 
-  loadExercisesList({ page: 1, filter: nameValue, type: activeFilterType });
+  resetExercisesSearch();
+
+  loadExercisesList({
+    page: 1,
+    filter: nameValue,
+    type: activeFilterType,
+    keyword: '', // <-- критично
+  });
 }
 
 getCategories(activeFilter, activePage, PAGE_LIMIT);

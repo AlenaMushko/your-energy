@@ -241,27 +241,26 @@ export function renderExercisesPagination(currentPage, totalPages) {
     currentPage,
     totalPages,
     mode: 'neighbors',
-    showPrevNext: totalPages > 2,
+
+    showPrevNext: totalPages > 2, 
+    showArrows: totalPages > 3, 
+
     classes: {
       page: 'exercises__page',
       active: 'active',
       prev: 'exercises__page-prev',
       next: 'exercises__page-next',
     },
-    icons: {
-      prev: '<',
-      next: '>',
-    },
-    scrollToTop: true,
+
     scrollTarget: '.exercises',
-    onPageChange(page) {
-      return loadExercisesList({ page });
-    },
+    onPageChange: page => loadExercisesList({ page }),
   });
 
-  const el = document.querySelector('.filters__controls');
-  if (el) el.scrollIntoView({ behavior: 'smooth' });
+  document
+    .querySelector('.filters__controls')
+    ?.scrollIntoView({ behavior: 'smooth' });
 }
+
 
 function handleExerciseItemClick(listEl) {
   const startButtons = listEl.querySelectorAll(
