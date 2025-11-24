@@ -258,10 +258,6 @@ export function renderExercisesPagination(currentPage, totalPages) {
       loadExercisesList({ page });
     },
   });
-
-  document
-    .querySelector('.filters__controls')
-    ?.scrollIntoView({ behavior: 'smooth' });
 }
 
 function handleExerciseItemClick(listEl) {
