@@ -139,13 +139,17 @@ body > .rating-modal {
 }
 
 .rating-modal__textarea {
-  resize: vertical;
-  min-height: 118px;
+  height: 93px;
+  resize: none;
   margin-bottom: 20px;
 
   @media screen and (min-width: 768px) {
-    min-height: 134px;
+    height: 106px;
     margin-bottom: 32px;
+  }
+
+  @media screen and (min-width: 1440px) {
+    height: 32px;
   }
 }
 

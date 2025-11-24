@@ -76,7 +76,7 @@ export async function initExerciseModal(closeModalFn) {
 
   const favoritesBtn = modal.querySelector('.favorites-btn');
   if (favoritesBtn) {
-    initFavoritesBtn(exercise, favoritesBtn);
+    initFavoritesBtn(exercise, favoritesBtn, closeModalFn);
   }
 
   const ratingBtn = modal.querySelector('.exercise-modal__btn--rating');
