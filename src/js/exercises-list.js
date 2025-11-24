@@ -174,9 +174,22 @@ function createExerciseCardMarkup(item, isFavorite = false) {
   const { name, burnedCalories, bodyPart, target, time, rating, _id } = item;
   const actionMarkup = isFavorite
     ? `<button type="button" class="favorites-delete-btn" data-id="${_id}">
-         <svg class="favorites-icon-trash" width="16" height="16" aria-label="Remove from favorites">
-            <use href="${BASE_URL}img/icons.svg#icon-trash"></use> 
-         </svg>
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="13"
+            height="14"
+            viewBox="0 0 17 19"
+            fill="none"
+            class="exercise-modal__btn-icon exercise-modal__btn-icon--trash"
+          >
+            <path
+              d="M11.5833 4.08333V3.41667C11.5833 2.48325 11.5833 2.01654 11.4017 1.66002C11.2419 1.34641 10.9869 1.09144 10.6733 0.931656C10.3168 0.75 9.85009 0.75 8.91667 0.75H7.58333C6.64991 0.75 6.1832 0.75 5.82668 0.931656C5.51308 1.09144 5.25811 1.34641 5.09832 1.66002C4.91667 2.01654 4.91667 2.48325 4.91667 3.41667V4.08333M6.58333 8.66667V12.8333M9.91667 8.66667V12.8333M0.75 4.08333H15.75M14.0833 4.08333V13.4167C14.0833 14.8168 14.0833 15.5169 13.8108 16.0516C13.5712 16.522 13.1887 16.9045 12.7183 17.1442C12.1835 17.4167 11.4835 17.4167 10.0833 17.4167H6.41667C5.01654 17.4167 4.31647 17.4167 3.78169 17.1442C3.31129 16.9045 2.92883 16.522 2.68915 16.0516C2.41667 15.5169 2.41667 14.8168 2.41667 13.4167V4.08333"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
        </button>`
     : `<div class="exercises__rating">
          <span class="exercises__meta-key">${rating}</span>
