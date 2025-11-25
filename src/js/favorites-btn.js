@@ -45,7 +45,7 @@ function removeFavorite(id) {
 
 const currentExercise = {};
 
-function initFavoritesBtn(exercise, buttonElement = null) {
+function initFavoritesBtn(exercise, buttonElement = null, closeModalFn = null) {
   const favoriteBtnElement = buttonElement || REFS.favoriteBtn;
 
   if (!favoriteBtnElement) return;
@@ -59,9 +59,15 @@ function initFavoritesBtn(exercise, buttonElement = null) {
 
   favoriteBtnElement.onclick = () => {
     const currentId = exercise.id || exercise._id;
-    if (isFavorite(currentId)) {
+    const wasInFavorites = isFavorite(currentId);
+
+    if (wasInFavorites) {
       removeFavorite(currentId);
       updateButtonState(favoriteBtnElement, false);
+
+      if (closeModalFn && typeof closeModalFn === 'function') {
+        closeModalFn();
+      }
     } else {
       addFavorite(exercise);
       updateButtonState(favoriteBtnElement, true);
@@ -78,6 +84,12 @@ function updateButtonState(button, isInFavorites) {
     textElement.textContent = isInFavorites
       ? 'Remove from favorites'
       : 'Add to favorites';
+  }
+
+  if (isInFavorites) {
+    button.classList.add('exercise-modal__btn--remove');
+  } else {
+    button.classList.remove('exercise-modal__btn--remove');
   }
 
   if (heartIcon && trashIcon) {
